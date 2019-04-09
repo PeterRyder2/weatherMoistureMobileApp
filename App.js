@@ -30,10 +30,11 @@ const AppStackNavigator = createStackNavigator(
   Test: TestScreen,
 },
 {
-  initialRouteName: 'Details'
+  initialRouteName: 'Login'
 })
 
 const TestApp = createAppContainer(AppStackNavigator)
 
 
 export default App
+

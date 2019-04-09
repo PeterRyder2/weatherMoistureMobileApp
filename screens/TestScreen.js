@@ -3,10 +3,12 @@ import { Alert,StyleSheet, Text, View, Picker } from 'react-native';
 import {Button, Paragraph, Menu, Divider } from 'react-native-paper';
 import {BottomNavigation } from 'react-native-material-ui';
 
+import PropTypes from 'prop-types'
+
 export default class MenuScreen extends React.Component {
   state = {
     visible: false,
-    name: "",
+    
     MoistureData: undefined,
     Moisture: false,
     AutoVal: false,
@@ -15,7 +17,7 @@ export default class MenuScreen extends React.Component {
     PickerSelectedVal : 'none',
     val: 'Unassinged',
     AutoValFromArduino: "Unassinged",
-    name:""
+    name:"peter"
   };
 
   _changeAutoValue = () => {
@@ -163,7 +165,10 @@ export default class MenuScreen extends React.Component {
 
     console.log("Moisture is  "  + this.state.Moisture)
 
-    const moistMessage = <Text style={styles.text1} >The moisture reading is {this.state.data}</Text>;
+    const moistMessage = <Text style={styles.text1} >
+                            The moisture reading is 
+                            {this.state.data}
+                          </Text>;
 
     const SetAutoValue =
     <View>
@@ -194,7 +199,7 @@ export default class MenuScreen extends React.Component {
     const GetAutoValue = <Text style={styles.text1} >The current Minimum value from the arduino is set to  {this.state.AutoValFromArduino}</Text>;
 
     
-    const TurnOnNow = <Text>System turned on</Text>;
+    const TurnOnNow = <Text  style={styles.text1}>System turned on</Text>;
 
 
     let message;  
@@ -221,7 +226,7 @@ export default class MenuScreen extends React.Component {
     // executes if the Get current Moisture is fired
     else if (this.state.TurnOnNow){
       console.log("at turn on if")
-      message = moistMessage
+      message = TurnOnNow
     }
     else{
       console.log("at final else")
@@ -275,7 +280,7 @@ export default class MenuScreen extends React.Component {
           }) }
       />
       <BottomNavigation.Action
-          key="menu"
+          key = "menu"
           icon="menu"
           label="Menu"
           onPress={() => this.props.navigation.navigate('MoistureReading', {
@@ -331,3 +336,42 @@ const styles = StyleSheet.create({
     }
 
 })
+
+/****Proptypes section ******* */
+
+//proptypes for bottomnavigation
+// You can declare that a prop is a specific JS type. 
+BottomNavigation.propTypes = {
+   active: PropTypes.string,
+   children: PropTypes.node.isRequired,
+   hidden: PropTypes.bool, /* DEFAULT: false */
+}
+
+BottomNavigation.Action.propTypes ={
+  icon: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  onPress: PropTypes.func,
+}
+
+Menu.propTypes={
+  visible: PropTypes.bool.isRequired,
+  onDismiss: PropTypes.func.isRequired,
+  anchor: PropTypes.node.isRequired
+}
+Menu.Item.propTypes={
+  onPress: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
+}
+
+Picker.propTypes={
+  selectedValue: PropTypes.string.isRequired,
+  onValueChange: PropTypes.func.isRequired,
+}
+
+Picker.Item.propTypes={
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
+}
+
+
+

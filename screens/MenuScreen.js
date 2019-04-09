@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Alert,StyleSheet, Text, View, Picker } from 'react-native';
 import {Button, Paragraph, Menu, Divider } from 'react-native-paper';
 import {BottomNavigation } from 'react-native-material-ui';
+import PropTypes from 'prop-types'
 
 export default class MenuScreen extends React.Component {
   
@@ -333,3 +334,41 @@ const styles = StyleSheet.create({
     }
 
 })
+
+/****Proptypes section ******* */
+
+//proptypes for bottomnavigation
+// You can declare that a prop is a specific JS type. 
+BottomNavigation.propTypes = {
+  active: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  hidden: PropTypes.bool, /* DEFAULT: false */
+}
+
+BottomNavigation.Action.propTypes ={
+ icon: PropTypes.string.isRequired,
+ label: PropTypes.string,
+ onPress: PropTypes.func,
+}
+
+Menu.propTypes={
+ visible: PropTypes.bool.isRequired,
+ onDismiss: PropTypes.func.isRequired,
+ anchor: PropTypes.node.isRequired
+}
+Menu.Item.propTypes={
+ onPress: PropTypes.func.isRequired,
+ title: PropTypes.string.isRequired
+}
+
+Picker.propTypes={
+ selectedValue: PropTypes.string.isRequired,
+ onValueChange: PropTypes.func.isRequired,
+}
+
+Picker.Item.propTypes={
+ label: PropTypes.string.isRequired,
+ value: PropTypes.string.isRequired
+}
+
+

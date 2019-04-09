@@ -10,6 +10,7 @@ import { TouchableOpacity,
         Image,
         Alert,
         StyleSheet} from 'react-native';
+import { PropTypes } from 'victory-native';
 //import { GoogleSigninButton } from 'react-native-google-signin';
 
 // code from tutorial  https://www.youtube.com/watch?v=ELXvcyiTTHM&t=13s
@@ -18,7 +19,7 @@ class LoginScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      signedIn: true,
+      signedIn: false,
       dataBaseConnected: false,
       name: "",
       photoUrl: "",
@@ -158,3 +159,8 @@ const styles = StyleSheet.create({
   }
 })
   export default LoginScreen;
+
+
+/****Proptypes section *******/
+//proptypes for bottomnavigation
+// You can declare that a prop is a specific JS type. 
