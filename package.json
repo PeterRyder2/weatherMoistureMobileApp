@@ -4,7 +4,11 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    
+    "test":"jest",
+    "test:watch": "jest --watch"
+    
   },
   "dependencies": {
     "expo": "^32.0.0",
@@ -20,7 +24,8 @@
     "victory-native": "^31.0.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.0.0",
+    "jest": "^24.7.1"
   },
   "private": true
 }

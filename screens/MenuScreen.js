@@ -31,6 +31,10 @@ export default class MenuScreen extends React.Component {
 
   }
 
+  _addThings = (x,y) =>{
+    return (x+y);
+  }
+
   _getCurrentAutoVal= async () =>{
     try{
         console.log("in getCurrentAutoVal")

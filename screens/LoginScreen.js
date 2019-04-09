@@ -19,7 +19,7 @@ class LoginScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      signedIn: false,
+      signedIn: true,
       dataBaseConnected: false,
       name: "",
       photoUrl: "",
