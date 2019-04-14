@@ -9,6 +9,7 @@ export default class MenuScreen extends React.Component {
   state = {
     visible: false,
     MoistureData: undefined,
+    ResponseFromArduinoTurnOn:"",
     Moisture: false,
     AutoVal: false,
     getAutoVal:false,
@@ -34,6 +35,32 @@ export default class MenuScreen extends React.Component {
   _addThings = (x,y) =>{
     return (x+y);
   }
+  // turns on watering system immediately
+  _TurnOnNow = async () =>{
+    try{
+      console.log("in _TurnOnNow")
+      // dataplicity code https://unilobed-poodle-4357.dataplicity.io/
+      // FOR LOCAL HOST USE
+      //const response = await fetch('http://192.168.0.2:5000/gav')
+      const response = await fetch('https://unilobed-poodle-4357.dataplicity.io/ton')
+      console.log(response)
+      //var val = JSON.parse(response)
+      this.setState({
+        ResponseFromArduinoTurnOn:response._bodyInit,
+        visible: false,
+        Moisture: false,
+        getAutoVal: false,
+        AutoVal: false,
+        TurnOnNow: true,
+      })
+
+  }
+  catch(e){
+      console.log(e)
+  }
+} // end _getTurnOnNow
+
+  
 
   _getCurrentAutoVal= async () =>{
     try{
@@ -68,7 +95,8 @@ export default class MenuScreen extends React.Component {
     try{
       //const response = await fetch('http://192.168.0.2:5000/gmr')
 
-      const response = await fetch('https://unilobed-poodle-4357.dataplicity.io/gmr/'+ this.state.name)
+      const response = await fetch('https://unilobed-poodle-4357.dataplicity.io/gmr/'+
+                                   this.state.name)
       console.log(response)
       //var val = JSON.parse(response)
       const val = response._bodyInit
@@ -169,7 +197,7 @@ export default class MenuScreen extends React.Component {
     console.log("Moisture is  "  + this.state.Moisture)
 
     const moistMessage =  <Text style={styles.text1} >
-                            The moisture reading is {this.state.data}
+                            The moisture reading is {this.state.moisturData}
                           </Text>
 
     const SetAutoValue =
@@ -201,7 +229,7 @@ export default class MenuScreen extends React.Component {
     const GetAutoValue = <Text style={styles.text1} >The current Minimum value from the arduino is set to  {this.state.AutoValFromArduino}</Text>;
 
     
-    const TurnOnNow = <Text>System turned on</Text>;
+    const TurnOnNow = <Text style={styles.text1} > Water system turned on</Text>;
 
 
     let message;  
@@ -228,7 +256,7 @@ export default class MenuScreen extends React.Component {
     // executes if the Get current Moisture is fired
     else if (this.state.TurnOnNow){
       console.log("at turn on if")
-      message = moistMessage
+      message = TurnOnNow
     }
     else{
       console.log("at final else")
@@ -246,7 +274,7 @@ export default class MenuScreen extends React.Component {
           visible={this.state.visible}
           onDismiss={this._closeMenu}
           anchor={
-            <Button  onPress={this._openMenu}>Welcome to the menu. Press me for options </Button>
+            <Button  onPress={this._openMenu}> Press me for options </Button>
           }
         >
          <Menu.Item onPress={this._getLiveMoisture} title="Get Current Moisture level" />
@@ -255,7 +283,7 @@ export default class MenuScreen extends React.Component {
           <Divider />
           <Menu.Item onPress={this._getCurrentAutoVal} title="Get the water min value " />
           <Divider />
-          <Menu.Item onPress={this._openTurnOnNow} title="water NOW!" />
+          <Menu.Item onPress={this._TurnOnNow} title="water NOW!" />
           <Divider />
           <Menu.Item onPress={this._openMenu} title="RESET!!!!" />
         </Menu>
@@ -281,15 +309,7 @@ export default class MenuScreen extends React.Component {
             currentUser: this.state.name,
           }) }
       />
-      <BottomNavigation.Action
-          key="menu"
-          icon="menu"
-          label="Menu"
-          onPress={() => this.props.navigation.navigate('MoistureReading', {
-            currentUser: this.state.name,
-          }) }
-      
-      />
+
       <BottomNavigation.Action
           key="settings"
           icon="settings"

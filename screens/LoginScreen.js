@@ -33,13 +33,10 @@ class LoginScreen extends React.Component {
     console.log("in dataNameStore")
     // dataplicity code https://unilobed-poodle-4357.dataplicity.io/
     try{
-
       const response = await fetch('http://192.168.0.2:5000/std/'+ this.state.name)
       //const response = await fetch('https://unilobed-poodle-4357.dataplicity.io/std/' + name1)
       console.log(response)
-      //var val = JSON.parse(response)
       const val = response._bodyInit
-      
       this.setState({
         returnFromDatabase : true,
         })
@@ -68,14 +65,12 @@ class LoginScreen extends React.Component {
           name: result.user.name,
           photoUrl: result.user.photoUrl
         })
-
       } else {
         console.log("cancelled")
       }
     } catch (e) {
       console.log("error", e)
     }
-    
     finally{
       const DataVal = this.dataNameStore()
       console.log("dataval is" + DataVal )

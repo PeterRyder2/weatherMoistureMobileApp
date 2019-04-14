@@ -46,7 +46,7 @@ class SettingsScreen extends Component {
       key="menu"
       icon="menu"
       label="Menu"
-      onPress={() => this.props.navigation.navigate('MoistureReading', {
+      onPress={() => this.props.navigation.navigate('Menu', {
         currentUser: this.state.name,
       }) }
   

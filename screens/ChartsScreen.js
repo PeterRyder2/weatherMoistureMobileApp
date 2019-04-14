@@ -30,14 +30,9 @@ class ChartsScreen extends React.Component {
     const { navigation } = this.props;
     const currentUser = navigation.getParam('currentUser');
     console.log("currentUser IS ...." + currentUser);
-    this.state.name = ""
+    this.state.name = "Peter Ryder"
     /********************************* */
-/*
-    <Text style={{"fontSize": 20, textAlign: 'center'}}>
-    Please select an option below 
-    and press the confirm button
-  </Text>
-*/
+
     return (
       <ScrollView contentContainerStyle = {styles.container}>
         <Text style={styles.text1}>
@@ -151,33 +146,23 @@ class ChartsScreen extends React.Component {
     // dataplicity code https://unilobed-poodle-4357.dataplicity.io/
     // FOR LOCAL HOST USE
     try{
-      //const response = await fetch('http://192.168.0.2:5000/gd/' + this.state.PickerSelectedVal)
-      console.log("name is XOXOXOXOXOX"  + this.state.name)
-      const response = await fetch('https://unilobed-poodle-4357.dataplicity.io/gd/' + this.state.PickerSelectedVal +'/' + this.state.name)
+      const response = await fetch('http://192.168.0.2:5000/gd/' + this.state.PickerSelectedVal+'/' + this.state.name)
+      //const response = await fetch('https://unilobed-poodle-4357.dataplicity.io/gd/' + this.state.PickerSelectedVal +'/' + this.state.name)
       console.log(response)
       //var val = JSON.parse(response)
       const val = response._bodyInit
-      console.log(typeof val)
       obj = JSON.parse(val);
-      console.log(typeof obj )
-  
-      highestNum = obj[0]
-      console.log("Highest num is  before loop is " + highestNum)
-  
+      // displays the highest nuumber from 
+      // retured values. used for adjusting y axis on graph
+      highestNum = obj[0] 
+
       for(i=0; i < obj.length ;i++){
-        console.log("i is " + highestNum)
-  
-        // get the hisghest value
-        console.log(obj[i])
         // get the hisghest number in the array
         if (obj[i]> highestNum ){
           highestNum = obj[i] 
         }
         dataLine[i] =  {timepoint: i+1, value: obj[i] }
       }
-      console.log("Highest num is  " + highestNum)
-      console.log("obj is " + obj)
-  
       this.setState({
          data : obj,
          maxNum: highestNum
@@ -185,9 +170,6 @@ class ChartsScreen extends React.Component {
     }catch(e){
       console.log(e);
     }
-
- 
-
   } // end getMoisture 
 }
 
@@ -213,7 +195,7 @@ const styles = StyleSheet.create({
       flex:0.4,
       justifyContent: 'center',
       fontWeight: 'bold',
-      fontSize: 20,
+      fontSize: 19,
       textAlign:'center',
     }
   
@@ -234,3 +216,4 @@ this.setState({PickerSelectedVal: itemValue})} >
 <Picker.Item label="last 32" value="32" />
 <Picker.Item label="last 48" value="48" />
 </Picker>*/
+
